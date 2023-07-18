@@ -93,6 +93,5 @@ public static class workWithStr
         string subStr = qwe.Substring(startIndex,endIndex - startIndex +1);
         Console.Write("Подстрока начинающаяся и заканчивающаяся с 'aeiouy': ");
         Console.Write(subStr);
-
     }
 }
