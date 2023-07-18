@@ -2,7 +2,6 @@
 
 Console.WriteLine("Введите строку");
 string str = Console.ReadLine();
-
 string letters = "";
 
 if (!Regex.IsMatch(str, "^[a-z]+$"))
