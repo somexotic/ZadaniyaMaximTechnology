@@ -1,12 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 using System.Net;
+using System.Text.Json;
 
 namespace Zadanie7
 {
-    public class strErrors
-    {
-        public string strError { get; set; }
-    }
     public class workStr
     {
         public string processedStr { get; set; }
@@ -17,6 +14,12 @@ namespace Zadanie7
         public  static string checkStr(string str)
         {
             string letters = "";
+
+            FromJson js = ReadJson.Read();
+            foreach(string q in js.Settings["BlackList"])
+            {
+                if (str == q) letters = "BlackList";
+            }
 
             if (!Regex.IsMatch(str, "^[a-z]+$"))
             {
@@ -76,6 +79,23 @@ namespace Zadanie7
         }
     }
 }
+
+public static class ReadJson
+{
+    public static FromJson Read()
+    {
+        string text = File.ReadAllText("appsettings.json");
+        FromJson js = JsonSerializer.Deserialize<FromJson>(text);
+        return js;
+    }
+}
+
+public class FromJson
+{
+    public string RandomApi { get; set; }
+    public Dictionary<string,string[]> Settings { get; set; }    
+}
+
 public static class workWithStr
 {
     public static string[] changeStr(string str)
@@ -174,10 +194,11 @@ public class webApi
 {
     public static string sendRequest(int strLen, string str)
     {
+        FromJson js = ReadJson.Read();
         int number;
         string[] newStr = new string[str.Length];
         Random rand = new Random();
-        WebRequest request = WebRequest.Create("http://www.randomnumberapi.com/api/v1.0/randomredditnumber?min=0&max=" + strLen + "&count=1");
+        WebRequest request = WebRequest.Create(js.RandomApi + strLen + "&count=1");
         WebResponse response = null;
         try
         {

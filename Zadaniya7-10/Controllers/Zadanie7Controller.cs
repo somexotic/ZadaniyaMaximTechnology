@@ -40,6 +40,10 @@ namespace Zadanie7.Controllers
                 });
                 return Ok(line);
             }
+            else if(letters == "BlackList")
+            {
+                return BadRequest("Строка находится в черном списке слов");
+            }
             else
             {
                 string error = "Использованы запрещенные символы: " + letters;
