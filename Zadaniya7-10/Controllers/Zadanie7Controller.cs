@@ -28,6 +28,7 @@ namespace Zadanie7.Controllers
         {
             FromJson js = ReadJson.Read();
             List<workStr> line = new List<workStr>();
+            tasks.RemoveAll(x => x.IsCompleted);
 
             if (sort != "ts" && sort != "qs")
             {
