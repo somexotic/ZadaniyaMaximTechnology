@@ -9,38 +9,57 @@ namespace Zadanie7.Controllers
     public class Zadanie7Controller : ControllerBase
     {
         private readonly ILogger<Zadanie7Controller> _logger;
+        public static List<Task> tasks = new List<Task>();
         public Zadanie7Controller(ILogger<Zadanie7Controller> logger)
         {
             _logger = logger;
         }
         /// <param name="str">Строка</param>
         /// <param name="sort">Типо сортировки qs-QuickSort ts-TreeSort</param>
+        /// <response code = "200">Успешно выполнено</response>
+        /// <response code = "400">Ошибка</response>
+        /// <response code = "503">Service Unavailable</response>
         /// <returns></returns>
         [HttpGet(Name = "workWithStr")]
         [SwaggerResponse(200, "Успешно выполнено")]
         [SwaggerResponse(400, "Ошибка")]
-        public IActionResult Get(string str, string sort)
+        [SwaggerResponse(503, "Service Unavailable")]
+        public async Task<IActionResult> GetAsync(string str, string sort)
         {
-            if(sort != "ts" && sort != "qs")
+            FromJson js = ReadJson.Read();
+            List<workStr> line = new List<workStr>();
+
+            if (sort != "ts" && sort != "qs")
             {
                 return BadRequest("В поле 'sort' можно вводить только qs или ts");
             }
             string letters = workStr.checkStr(str);
             if (letters == "")
             {
-                string firstStr = workStr.firstTask(str);
-                string sorStr = workStr.fourthTask(firstStr, sort);
-                List<workStr> line = new List<workStr>();
-                line.Add(new workStr() {
-                    processedStr = workStr.firstTask(str),
-                    countLetters = workStr.secondTask(firstStr),
-                    subString = workStr.thirdTask(firstStr),
-                    sortedString = sorStr,
-                    cutSortedString = workStr.fifthTask(sorStr.Length, sorStr)
-                });
-                return Ok(line);
+                if(tasks.Count < Convert.ToInt32(js.Settings["ParalleLimit"][0]))
+                {
+                    tasks.Add(Task.Run(async () =>
+                    {
+                        string firstStr = workStr.firstTask(str);
+                        string sorStr = workStr.fourthTask(firstStr, sort);
+                        line.Add(new workStr()
+                        {
+                            processedStr = workStr.firstTask(str),
+                            countLetters = workStr.secondTask(firstStr),
+                            subString = workStr.thirdTask(firstStr),
+                            sortedString = sorStr,
+                            cutSortedString = workStr.fifthTask(sorStr.Length, sorStr)
+                        });
+                    }));
+                    await Task.WhenAll(tasks);
+                    return Ok(line);
+                }
+                else
+                {
+                    return StatusCode(503, "Serivce Unavailable");
+                }
             }
-            else if(letters == "BlackList")
+            else if (letters == "BlackList")
             {
                 return BadRequest("Строка находится в черном списке слов");
             }
@@ -50,6 +69,5 @@ namespace Zadanie7.Controllers
                 return BadRequest(error);
             }
         }
-            
     }
 }

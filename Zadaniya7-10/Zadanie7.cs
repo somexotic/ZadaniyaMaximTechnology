@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Net;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Zadanie7
 {
@@ -79,7 +80,6 @@ namespace Zadanie7
         }
     }
 }
-
 public static class ReadJson
 {
     public static FromJson Read()
@@ -93,7 +93,7 @@ public static class ReadJson
 public class FromJson
 {
     public string RandomApi { get; set; }
-    public Dictionary<string,string[]> Settings { get; set; }    
+    public Dictionary<string,List<string>> Settings { get; set; }    
 }
 
 public static class workWithStr
