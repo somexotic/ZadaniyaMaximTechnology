@@ -12,7 +12,7 @@ namespace Zadanie7
         public string subString { get; set; }
         public string sortedString { get; set; }
         public string cutSortedString { get; set; }
-        public  static string checkStr(string str)
+        public string checkStr(string str)
         {
             string letters = "";
 
@@ -35,47 +35,24 @@ namespace Zadanie7
             }
             return letters;
         }
-        public static string firstTask(string str)
+        public string firstTask(string str)
         {
-            if (str.Length % 2 == 0)
-            {
-                string str1 = "", str2 = "";
-                for (int i = 0; i < str.Length; i++)
-                {
-                    if (i < str.Length / 2)
-                    {
-                        str1 += str[i];
-                    }
-                    else
-                    {
-                        str2 += str[i];
-                    }
-                }
-                string newStr = workWithStr.ReveseStr(str1) + workWithStr.ReveseStr(str2);
-                return newStr;
-            }
-            else
-            {
-                string revStr = workWithStr.ReveseStr(str);
-                string newStr = revStr + str;
-                return newStr;
-            }
+            return workWithStr.FirstTask(str);
         }
-        public static Dictionary<char,int> secondTask(string str)
+        public Dictionary<char,int> secondTask(string str)
         {
             return workWithStr.countLetters(str);
         }
-        public static string thirdTask(string str)
+        public string thirdTask(string str)
         {
             return workWithStr.findSubString(str);
         }
-        public static string fourthTask(string str, string sort)
+        public string fourthTask(string str, string sort)
         {
             return string.Join("", workWithStr.chooseSort(str, sort));
         }
-        public static string fifthTask(int len, string str)
+        public string fifthTask(int len, string str)
         {
-
             return webApi.sendRequest(len,str);
         }
     }
@@ -98,6 +75,32 @@ public class FromJson
 
 public static class workWithStr
 {
+    public static string FirstTask(string str)
+    {
+        if (str.Length % 2 == 0)
+        {
+            string str1 = "", str2 = "";
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (i < str.Length / 2)
+                {
+                    str1 += str[i];
+                }
+                else
+                {
+                    str2 += str[i];
+                }
+            }
+            string newStr = ReveseStr(str1) + ReveseStr(str2);
+            return newStr;
+        }
+        else
+        {
+            string revStr = ReveseStr(str);
+            string newStr = revStr + str;
+            return newStr;
+        }
+    }
     public static string[] changeStr(string str)
     {
         string[] newStr = new string[str.Length];

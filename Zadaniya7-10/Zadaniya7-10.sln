@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadaniya7-10", "Zadaniya7-10.csproj", "{304C8635-0210-45A1-A1CC-7F31FCC3E19F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zadaniya7-10", "Zadaniya7-10.csproj", "{304C8635-0210-45A1-A1CC-7F31FCC3E19F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZadaniyaTests", "..\ZadaniyaTests\ZadaniyaTests.csproj", "{FD51EDE4-85EB-4022-BC78-763A167362AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{304C8635-0210-45A1-A1CC-7F31FCC3E19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{304C8635-0210-45A1-A1CC-7F31FCC3E19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{304C8635-0210-45A1-A1CC-7F31FCC3E19F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD51EDE4-85EB-4022-BC78-763A167362AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD51EDE4-85EB-4022-BC78-763A167362AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD51EDE4-85EB-4022-BC78-763A167362AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD51EDE4-85EB-4022-BC78-763A167362AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
